@@ -84,6 +84,27 @@ Use the object form to point at a different file, for example to tune wording pe
 - Defensive by design: if the contract cannot be read or the event shape changes, the plugin logs and lets native
   compaction proceed.
 
+## Tested with
+
+Compaction model is orthogonal to this plugin: set `agents.compaction.model` and compare. The A/B below used the same
+sessions and the same contract, so the difference is the summarizer, not the wording.
+
+| Summarizer | Same transcript (~11k in) | Long session (~84k in) | Kept |
+| --- | --- | --- | --- |
+| `opencode/deepseek-v4.1-flash-free` | 5,036 B / 1,341 out | 5,255 B / 1,724 out | literal values, rejected alternatives, root cause vs look-alike, unverified tags |
+| `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free` | 1,380 B / 385 out | 2,525 B / 780 out | objective, decisions, status, next move; dropped errors/root cause, commands+evidence, uncertainty tags |
+
+**Result:** DeepSeek wins for long sessions — roughly 2.5–3.5x more summary and it preserves the details that are
+expensive to re-derive (exact commands, rejected options, quota vs hard-limit distinctions). Nemotron stays readable
+and organized and is fine for short, linear sessions.
+
+Both are free tiers and their availability, limits, and quality can change. Any strong instruction-following model
+works; the point of the table is that a weaker summarizer produces a weaker summary even with a good contract.
+
+Note that `keep.tokens` is approximate and the retained tail has long tool output shortened, so verbatim detail that
+lives inside old tool results survives only through the summary. Keep durable state (plans, notes) in a file when it
+must not be lost.
+
 Pair it with a slightly larger recent-context window when you want more verbatim tail, e.g.:
 
 ```jsonc

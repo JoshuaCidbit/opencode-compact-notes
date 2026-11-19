@@ -62,6 +62,10 @@ The summary must contain, explicitly and with concrete detail:
 
 8. Current status and next steps
    - Done / in progress / pending / blocked, with the reason for each block.
+   - If any work is mid-flight, awaiting a tool result, or awaiting a user
+     decision at the time of compaction, list it under "in progress", never as
+     "(none)". Write "(none)" only when the transcript unambiguously shows
+     nothing is pending.
    - The exact next action, specific enough to execute without re-investigation.
    - Open questions waiting on the user, and what was explicitly deferred.
 
