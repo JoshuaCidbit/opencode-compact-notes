@@ -1,0 +1,23 @@
+{
+  "name": "opencode-compact-notes",
+  "version": "0.1.0",
+  "description": "High-fidelity compaction summaries for OpenCode: injects a completeness-first contract into checkpoint summary calls only.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "compact.md"
+  ],
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "compaction",
+    "context"
+  ],
+  "dependencies": {
+    "@opencode/plugin": "^2.3.2"
+  }
+}
